@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <Navbar></Navbar>
+    <div>
+    <Navbar/>
+    </div>
       <Hero/>
       <Products/>
       <Login/>
@@ -14,7 +16,7 @@
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur quaerat voluptate iusto? Nihil voluptas vitae veritatis magnam reprehenderit, reiciendis ex? Libero quasi natus veniam voluptatum, voluptas exercitationem ratione consectetur et!
             </p>
-             <button class="btn custom-btn btn-outline-primary mr-4">Browse Products</button>
+             <button class="btn custom-btn btn-outline-danger mr-4">Browse Products</button>
           </div>
         </div>
       </div>
@@ -40,6 +42,7 @@ export default {
 <style scoped>
 .home {
   background-color: black;
+  color: white;
 }
 </style>
 

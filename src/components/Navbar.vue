@@ -1,8 +1,8 @@
 <template>
-  <div class="hello">
-   <nav class="navbar custom-nav fixed-top navbar-expand-lg navbar-light bg-light">
-     <div class="container">
-        <router-link class="navbar-brand" to="/">Game<span style="color: blue">Station</span></router-link>
+  <div class="hello" >
+   <nav class="navbar py-4 fixed-top navbar-expand-lg navbar-dark">
+     <div class="container-fluid">
+        <router-link class="navbar-brand" to="/">Game<span style="color: #DC345">Station</span></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,8 +23,8 @@
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <a class="btn btn-dark my-2 my-sm-0" data-toggle="modal" data-target="#login">Log in</a>
-            <a class="btn btn-outline-info border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
+            <a class="btn btn-outline-dark my-2 my-sm-0" data-toggle="modal" data-target="#login">Log in</a>
+            <a class="btn btn-outline-danger border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
               <i class="fas fa-cart-plus"></i>
             </a>
           </form>
@@ -48,20 +48,27 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-    .custom-nav.navbar {
+<style  lang="scss">
+    .navbar {
         background: black;
         color: #fff;
+        padding: 50px
     }
     .navbar-brand {
       font-weight: bolder;
     }
+    .nav-item  {
+      color: white;
+    }
+
+   
   @media (min-width: 992px) { 
     
-    .navbar.custom-nav{
+    .navbar{
       padding-top:16px;
       padding-bottom:16px;
-      background-color: #fff !important;
+      background-color: black !important;
+      color: white !important;
     }
 
    }

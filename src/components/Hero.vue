@@ -1,25 +1,29 @@
 <template>
-    <div class="hero">
-        <div class="container h-100">
-          <div class="row h-100 justify-content-center align-items-center">
-            <div class="col-md-5">
+    <div class="">
+        <div class=" hero container-fluid h-100 bg-for-hero">
+          <div class="row h-100 ">
+            <div class="col-md-3">
+              
+            </div>
+            <div class="col-md-3">
               <div class="hero-content">
-                <h1 class="hero-title">
-                  Video Games for Playstation and X-box
-                </h1>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos numquam tempora, iure delectus totam minus quam aperiam ratione dolores magni voluptates ut necessitatibus odio ipsum fuga, voluptas ab praesentium nihil?
+                <h3 class="hero-title">
+                  Video Games for Sony's Playstation 4 and Microsoft's X-box One
+                </h3>
+                <p class="light-bg">
+                  Get games such as FIFA 20, PES 2020, God of War, Call of Duty (Modern Warfare), Drive, Need for Speed, Grand Theft Auto, Mortal Combat and lots more
                 </p>
                 <div class="hero-btn mt-5">
-                    <button class="btn custom-btn btn-light mr-4">Explore</button>
-                    <button class="btn custom-btn btn-outline-light">Products</button>
+                    <button class="btn btn-outline-danger mr-4">Explore</button>
+                    <button class="btn btn-danger ">Products</button>
                 </div>
               </div>
             </div>
-            <div class="col-md-7">
-                <div class="graphic">
-                    <img src="/img/svg/graphic.svg" alt="">
-                </div>
+            <div class="col-md-3 mt-5">
+                
+            </div>
+            <div class="col-md-3">
+              
             </div>
           </div>
         </div>
@@ -40,8 +44,21 @@ export default {
   .hero{
     padding-top: 7rem;
     width: 100%;
-    height: 500px;
     text-align: left;
+    background:url('../assets/images/controller2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: cover;
+    min-height: 100vh;
+  }
+  .hero-content {
+    padding-top: 50px;
+    font-size: 15px;
+  }
+
+  .light-bg {
+    background-color: rgb(0, 0, 0, .4);
+    padding: 20px 0;
   }
 
 </style>

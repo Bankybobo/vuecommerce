@@ -1,45 +1,44 @@
 <template>
   <div class="products" id="products">
       <div class="container">
-          <h1 class="text-center p-5">Our Products</h1>
+          <h1 class="text-center p-1">Our <span style="color: #DC3545">Products</span> </h1>
           <div class="row">
               
               <div class="col-md-4">
-                  <div class="card product-item">
-                    <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
+                  <div class="card inline product-item">
+                    <img src="../assets/images/about1.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Surface Book 2</h5>
+                            <h5 class="card-title">FIFA 20</h5>
                             <p class="card-text">
-                                Complete your device with Office 365 and get 1TB cloud storage, Excel, Word, PowerPoint & more. Select your suite during checkout.
+                                Showcase your footballing skills when you controll world class players on your console
                             </p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                            <a href="#" class="btn btn-danger">Add to Cart</a>
                         </div>
                     </div>
               </div>
 
               <div class="col-md-4">
-                  <div class="card product-item">
-                    <img src="/img/products/product2.jpg" class="card-img-top" alt="...">
+                  <div class="card product-item inline">
+                    <img src="../assets/images/about2.jpg" class="card-img-top img-fluid" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Surface Laptop 2</h5>
+                            <h5 class="card-title">God of War</h5>
                             <p class="card-text">
-                               Style and speed. Go beyond the traditional with new Surface Laptop 2. Featuring improved performance and the full Windows 10 Home experience.
+                               Enjoy the adventures of a mighty Amazonian warrior battling demons on his way to glory
                             </p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                            <a href="#" class="btn btn-danger">Add to Cart</a>
                         </div>
                     </div>
               </div>
 
               <div class="col-md-4">
-                  <div class="card product-item">
-                    <img src="/img/products/product3.jpg" class="card-img-top" alt="...">
+                  <div class="card product-item inline">
+                    <img src="../assets/images/about3.jpeg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Surface Studio 2</h5>
+                            <h5 class="card-title">Need for Speed</h5>
                             <p class="card-text">
-                                    The ultimate creative studio. Let your ideas flow with brilliant color, blazing graphics, faster processors, intuitive tools, and a stunning, adjustable 28” display.
-
+                                Evade the police, run ragged in town, enjoy the euphoria as you speed through the paved streets of America
                             </p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                            <a href="#" class="btn btn-danger">Add to Cart</a>
                         </div>
                     </div>
               </div>
@@ -61,13 +60,25 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     .products{
-        margin-top: 7rem;
+        margin-top: 3rem;
         // background: #f2f2f2;
         padding-bottom: 3rem;
     }
     .product-item {
         background-color: black;
-        box-shadow: 3px 1px 20px;
+        box-shadow: 0px 1px 2px;
         margin-top: 20px;
+        // border: 1px solid white;
+    }
+    .inline {
+    overflow: hidden;
+    }
+
+    .inline img {
+        transition: all 1.0s ease
+    }
+
+    .inline:hover img {
+        transform: scale(1.3)
     }
 </style>

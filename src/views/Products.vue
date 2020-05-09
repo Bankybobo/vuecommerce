@@ -101,17 +101,9 @@
                     </div>
 
                     <div class="form-group d-flex">
-                      <div class="p-1">
-                          <div class="img-wrapp">
-                              <img alt="" width="80px">
-                              <span class="delete-img">X</span>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div  v-for="i in product.images" :key="i['.key']">
-                          <img style="width: 200px" :src="i" alt="Pic1">
+                        <div class="img-wrapp"  v-for="(i, index) in product.images" :key="i['.key']">
+                          <img style="width: 80px" :src="i" alt="Pic1">
+                          <span class="delete-img" @click="deleteImage(i, index)">X</span>
                         </div>
                     </div>
 
@@ -174,88 +166,96 @@ export default {
       }
   },
   methods:{
+      deleteImage (i, index) {
+        let image = fb.storage().refFromURL(i)
+        // this is to grab the ref of the URL from storage. This is different from when you want to add image.
+        this.product.images.splice(index, 1)
+        image.delete().then(() => {
+          console.log("image deleted")
+        }).catch((error) => {
+          console.log('An error has occured', error)
+        })
+      },
 
       uploadImage(e) {
-      if (e.target.files[0]){
-      let file = e.target.files[0]
-      var storageRef = fb.storage().ref('products/' + file.name)
-      let uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', () => {
-  
-      }, () => {
-        // handles error or unsuccessful uploads
-      }, () => {
-        // handles successful uploads on complete
-        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-          this.product.images.push(downloadURL);
-          console.log('file available at', this.product.images);
-        })
-      })
-    }
-  },
+        if (e.target.files[0]){
+        let file = e.target.files[0]
+        var storageRef = fb.storage().ref('products/' + file.name)
+        let uploadTask = storageRef.put(file);
+        uploadTask.on('state_changed', () => {
+    
+        }, () => {
+          // handles error or unsuccessful uploads
+        }, () => {
+          // handles successful uploads on complete
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.product.images.push(downloadURL);
+              console.log('file available at', this.product.images);
+            })
+          })
+        }
+      },
 
-    addNew () {
-      this.modal = "Add New"
-      $('#product').modal('show')
-    },
+      addNew () {
+        this.reset()
+        this.modal = "Add New"
+        $('#product').modal('show')
+      },
 
-    updateProduct () {
-        console.log(this.activeID)
-        this.$firestore.products.doc(this.activeID).update(this.product)
-        Toast.fire({
-          icon: 'success',
-          title: 'Updated successfully'
-        })
-      $('#product').modal('hide')
-    },
+      updateProduct () {
+          console.log(this.activeID)
+          this.$firestore.products.doc(this.activeID).update(this.product)
+          Toast.fire({
+            icon: 'success',
+            title: 'Updated successfully'
+          })
+        $('#product').modal('hide')
+      },
 
-    editProduct (p) {
-      this.modal = "Edit"
-      $('#product').modal('show')
-      this.product = p
-      this.activeID = p.id
-      // Use the id instead of key. We have defined .key in the main.js
-    },
+      editProduct (p) {
+        this.modal = "Edit"
+        $('#product').modal('show')
+        this.product = p
+        this.activeID = p.id
+        // Use the id instead of key. We have defined .key in the main.js
+      },
 
-    readData () {
+      reset () {
+        this.product = {images: [], name: '', price: '',  description: null, tag: [] }
+      },
+
+      addProduct () {
+        this.$firestore.products.add(this.product)
+        $('#product').modal('hide')
+      },
+      
+      deleteProduct (productToDelete) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#000000',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            background: "black",
+          })
+          .then((result) => {
+            if (result.value) {
+              this.$firestore.products.doc(productToDelete.id).delete()          
+              Toast.fire({
+                icon: 'success',
+                title: 'Deleted successfully'
+              })
+            }
+          })      
+      },
       
     },
 
-    addProduct () {
-      this.$firestore.products.add(this.product)
-      $('#product').modal('hide')
+    created () {
+
     },
-     
-    deleteProduct (productToDelete) {
-      Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#000000',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!',
-          background: "black",
-        })
-        .then((result) => {
-          if (result.value) {
-            this.$firestore.products.doc(productToDelete.id).delete()          
-            Toast.fire({
-              icon: 'success',
-              title: 'Deleted successfully'
-            })
-          }
-        })      
-    },
-
-    reset () {
-
-    }
-  },
-
-  created () {
-
-  },
  
 }
 </script>
@@ -271,7 +271,7 @@ export default {
     top: -14px;
     left: -2px;
 }
-.img-wrapp span.delete-img:hover{
+.img-wrapp span.delete-img{
   cursor: pointer;
 }
 .products {
@@ -303,4 +303,7 @@ button {
 .close-button-class {
   background-color: black;
 }
+
+
+
 </style>
