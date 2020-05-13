@@ -2,22 +2,6 @@
   <div class="products">
       <div class="container">
           
-        <div class="intro h-100">
-            <div class="row h-100 align-items-center">
-              <div class="col-md-6 ml-3">
-                    <h3>Profile settings</h3>
-                    
-                 <p>
-                   Change your profile settings here
-                 </p>
-              </div>
-              <div class="col-md-5">
-                  <img src="/img/svg/profile.svg" width="300" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-
-
           <div class="profile-content">
 
           <ul class="nav nav-pills ml-3" id="myTab" role="tablist">
@@ -37,14 +21,20 @@
 
                   <div class="container">
                       <div class="row">
+
+                        <div class="col-md-4 display-picture">
+                            <img src="" alt="Profile-Picture">
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
                         
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-3">
                           <div class="form-group">
                             <input type="text" name="" v-model="profile.name" placeholder="Full name" class="form-control">
                           </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-3">
                           <div class="form-group">
                             <input type="text"  v-model="profile.phone" placeholder="Phone" class="form-control">
                           </div>
@@ -56,10 +46,16 @@
                           </div>
                         </div>
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                           <div class="form-group">
                             <input type="text"  v-model="profile.postCode" placeholder="Postcode" class="form-control">
                           </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <div class="form-group">
+                              <input type="file" @change="uploadImage" class="form-control">
+                           </div>
                         </div>
 
                         <div class="col-md-4">
@@ -105,11 +101,7 @@
                           </div>
                         </div>
 
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <input type="file" @change="uploadImage" class="form-control">
-                           </div>
-                        </div>
+                        
 
                         <div class="col-md-4">
                           <div class="form-group">
@@ -119,7 +111,7 @@
 
                         <div class="col-md-4">
                           <div class="form-group">
-                              <input type="button" @click="resetPassword"value="Reset password email" class="btn btn-success w-100">
+                              <input type="button" @click="resetPassword" value="Reset password email" class="btn btn-success w-100">
                           </div>
                         </div>
                       </div>
@@ -137,13 +129,14 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+// import { VueEditor } from "vue2-editor";
 import { fb, db} from '../firebase';
+import { Toast } from '../main'
 
 export default {
   name: "profile",
   components: {
-    VueEditor
+    // VueEditor
   },
   props: {
     msg: String
@@ -203,5 +196,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.display-picture {
+  height: 250px;
+  width: 180px;
+  border: 1px solid red;
+  margin-block: 10px;
+}
 
 </style>

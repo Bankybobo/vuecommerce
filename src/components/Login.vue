@@ -1,83 +1,37 @@
 <template>
-  <div class="login">
-        <!-- Modal -->
-        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-body">
-
-
-                        <ul class="nav nav-fill nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-register-tab" data-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="false">Signup</a>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
-                            
-                            <h5 class="text-center">Login Please</h5>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>
-
-                             <div class="form-group">
-                                <button class="btn btn-dark" @click="login">Login</button>
-                            </div>
-
+<div class="login">
+    <Navbar/>
+    <div class="container mt-5 pt-5">
+                <div class="box">
+                    <h2>Login</h2>
+                    <form>
+                        <div class="inputbox">
+                            <input type="text"  name="" v-model="email" required>
+                            <label for="Username">
+                            <i class="fa fa-user"></i>
+                            Email</label>
                         </div>
-                        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
-                            
-                             <h5 class="text-center">Create New Account</h5>
-                             
-                            <div class="form-group">
-                                <label for="name">Your name</label>
-                                <input type="text" v-model="name" class="form-control" id="name" placeholder="Fullname">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-dark" @click="register">Register</button>
-                            </div>
-
+                        <div class="inputbox">
+                            <input type="password" name="" @keyup.enter="login" v-model="password" required>
+                            <label for="Password">
+                            <i class="fa fa-lock"></i>
+                            Password</label>
                         </div>
-                        </div>
-                    
- 
+                        <button @click.prevent="login"  class="btn btn-outline-danger">Log in</button>
+                        <p>Don't have an account? Sign Up <router-link class="route" to="/register">here</router-link></p>
+                        
+                    </form>
                 </div>
-           
             </div>
         </div>
-        </div>
-    
-  </div>
 </template>
 
 <script>
 import { fb } from '../firebase'
 import "firebase/auth"
-import $ from 'jquery'
 
 export default {
-  name: "Login",
+  name: "login",
   props: {
     msg: String
   },
@@ -90,7 +44,6 @@ export default {
   },
   methods:{
       login () {
-          $('#login').modal('hide')
           fb.auth().signInWithEmailAndPassword(this.email, this.password)
           .then(() => {
               this.$router.replace({name: 'admin'})
@@ -104,30 +57,81 @@ export default {
                 console.log(err);
           })
       },
-      register () {
-          $('#login').modal('hide')
-          fb.auth().createUserWithEmailAndPassword(this.email, this.password)
-          .then(() => {
-              this.$router.replace({name: "admin"})
-          })
-          .catch(err => {
-              var errorCode = err.code;
-              var errMessage = err.Message;
-                if (errorCode == 'auth/weak-password')
-                  alert("password is too week")
-                else alert(errMessage);
-                console.log(err);
-          })
-          console.log("God forgive me")
-      }
+      
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-  .nav-pills, .nav-item{
-    background-color: black;
-    color: white
-  }
+<style scoped>
+    .login {
+    background:url('../assets/images/controller1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: cover;
+    min-height: 100vh;
+    }
+
+    .main {
+        font-family: 'Josefin Sans', sans-serif;
+    }
+    .box {
+        position: absolute;
+        top: 40%;
+        left: 35%;
+        transform: translate(-30%, -30%);
+        width: 400px;
+        padding: 40px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+    }
+
+    .box h2 {
+        margin-bottom: 40px;
+        padding: 0;
+        color: #C82324;
+    }
+    .box p {
+        margin-bottom: 40px;
+        padding: 0;
+        color: lightslategray;
+    }
+    .box .inputbox {
+        position: relative;
+        
+    }
+    .box .inputbox input {
+        width: 100%;
+        padding: 5px 0;
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: #fff;
+        margin-bottom: 45px;
+        border: none;
+        outline: none;
+        background: transparent;
+        border-bottom: 1px solid #C82324;
+    }
+    .box .inputbox label {
+        position: absolute;
+        top: 0;
+        letter-spacing: 1px;
+        left: 0;
+        padding: 5px 0;
+        font-size: 16px;
+        color: lightslategray;
+        pointer-events: none;
+        transition: .5s;
+    }
+    .box .inputbox input:focus ~ label,
+    .box .inputbox input:valid ~ label {
+        top: -23px;
+        left: 0;
+        color: rgb(241, 86, 86);
+        font-size: 13px;
+    } 
+    .route {
+        color: #C82324;
+    }
+
+
 </style>

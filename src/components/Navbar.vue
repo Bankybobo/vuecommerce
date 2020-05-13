@@ -1,9 +1,9 @@
 <template>
   <div class="hello" >
    <nav class="navbar py-4 fixed-top navbar-expand-lg navbar-dark">
-     <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">Game<span style="color: #DC345">Station</span></router-link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <div class="container">
+        <router-link class="navbar-brand" to="/">Game<span style="color: #C82333">Station</span></router-link>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -13,7 +13,7 @@
               <router-link to="/" class="nav-link">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/products" class="nav-link" href="#">Products</router-link>
+              <router-link to="/productlist" class="nav-link" href="#">Products</router-link>
             </li>
 
             <li class="nav-item">
@@ -22,8 +22,8 @@
           
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <a class="btn btn-outline-dark my-2 my-sm-0" data-toggle="modal" data-target="#login">Log in</a>
+            <input style="width: 60%" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <router-link style="color: white" to="/login"><a class="btn nav-item mx-1 btn-outline-dark my-2 my-sm-0">Log in</a></router-link>
             <a class="btn btn-outline-danger border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
               <i class="fas fa-cart-plus"></i>
             </a>
@@ -69,6 +69,15 @@ export default {
       padding-bottom:16px;
       background-color: black !important;
       color: white !important;
+    }
+
+   }
+
+   @media (max-width: 770px) { 
+    
+    .navbar{
+      width: 100%;
+      padding: auto;
     }
 
    }

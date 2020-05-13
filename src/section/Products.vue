@@ -2,7 +2,7 @@
   <div class="products" id="products">
       <div class="container">
           <h1 class="text-center p-1">Our <span style="color: #DC3545">Products</span> </h1>
-          <div class="row">
+          <div class="row text-center">
               
               <div class="col-md-4">
                   <div class="card inline product-item">
@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Need for Speed</h5>
                             <p class="card-text">
-                                Evade the police, run ragged in town, enjoy the euphoria as you speed through the paved streets of America
+                                Evade the police, enjoy the euphoria as you speed through the paved streets of America
                             </p>
                             <a href="#" class="btn btn-danger">Add to Cart</a>
                         </div>
@@ -67,7 +67,9 @@ export default {
     .product-item {
         background-color: black;
         box-shadow: 0px 1px 2px;
-        margin-top: 20px;
+        margin-top: 20px auto;
+        width: 300px;
+
         // border: 1px solid white;
     }
     .inline {
@@ -81,4 +83,13 @@ export default {
     .inline:hover img {
         transform: scale(1.3)
     }
+    @media (max-width: 760px) { 
+    
+    .product-item {
+      max-width: 250px;
+      margin: 10px auto;
+    //   margin-left: 40px;
+    }
+
+   }
 </style>

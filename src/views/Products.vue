@@ -3,17 +3,7 @@
       <div class="container">
           
         <div class="intro h-100">
-            <div class="row h-100 justify-content-center align-items-center">
-              <div class="col-md-6">
-                                        
-                 <p>
-                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, ducimus.
-                 </p>
-              </div>
-              <div class="col-md-6">
-                  <img src="/img/svg/products.svg" alt="" class="img-fluid">
-              </div>
-            </div>
+            
             <h3 class="text-center mb-3">Basic Crud</h3>
             <div class="product-test">
  
@@ -71,7 +61,7 @@
                     </div>
 
                     <div class="form-group">
-                      <vue-editor v-model="product.description"></vue-editor>
+                      <vue-editor style="background: black" v-model="product.description"></vue-editor>
                     </div>
                   </div>
                   <!-- product sidebar -->
@@ -279,7 +269,7 @@ export default {
 }
 
 tr {
-  padding: 10px 30px;
+  padding: 5px 30px;
   // border: 1px solid white;
   color: white
 }
@@ -288,7 +278,7 @@ input {
 }
 
 th {
-  padding: 10px 30px;
+  padding: 5px 30px;
   // border: 1px solid white;
   color: black;
   background-color: white;
@@ -297,9 +287,7 @@ th {
   color: black;
 }
 
-button {
-  margin: 10px;
-}
+
 .close-button-class {
   background-color: black;
 }

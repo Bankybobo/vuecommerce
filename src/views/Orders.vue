@@ -37,7 +37,7 @@
                   </thead>
 
                   <tbody>
-                      <tr v-for="product in products">
+                      <tr v-for="product in products" :key="product['.key']">
                         <td>
                           {{product.name}}
                         </td>
@@ -98,7 +98,7 @@
                       <input type="text" @keyup.188="addTag" placeholder="Product tags" v-model="tag" class="form-control">
                       
                       <div  class="d-flex">
-                        <p v-for="tag in product.tags">
+                        <p v-for="tag in product.tags" :key="tag['.key']">
                             <span class="p-1">{{tag}}</span>
                         </p>
 
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="form-group d-flex">
-                      <div class="p-1" v-for="(image, index) in product.images">
+                      <div class="p-1" v-for="(image, index) in product.images" :key="image['.key']">
                           <div class="img-wrapp">
                               <img :src="image" alt="" width="80px">
                               <span class="delete-img" @click="deleteImage(image,index)">X</span>
@@ -144,6 +144,9 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import { fb, db} from '../firebase';
+import { Toast } from '../main'
+import $ from 'jquery'
+import Swal from 'sweetalert2'
 
 export default {
   name: "Products",
@@ -185,7 +188,7 @@ export default {
 
       image.delete().then(function() {
         console.log('image deleted');
-      }).catch(function(error) {
+      }).catch(function() {
         // Uh-oh, an error occurred!
         console.log('an error occurred');
       });
@@ -206,9 +209,9 @@ export default {
     
           let uploadTask  = storageRef.put(file);
     
-          uploadTask.on('state_changed', (snapshot) => {
+          uploadTask.on('state_changed', () => {
             
-          }, (error) => {
+          }, () => {
             // Handle unsuccessful uploads
           }, () => {
             // Handle successful uploads on complete

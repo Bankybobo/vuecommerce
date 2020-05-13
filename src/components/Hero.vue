@@ -1,28 +1,34 @@
 <template>
     <div class="">
-        <div class=" hero container-fluid h-100 bg-for-hero">
-          <div class="row h-100 ">
-            <div class="col-md-3">
+        <div class=" hero container h-100 bg-for-hero">
+          <div class="row h-100 mt-5">
+            <div class="col-md-1">
               
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="hero-content">
-                <h3 class="hero-title">
-                  Video Games for Sony's Playstation 4 and Microsoft's X-box One
+                <div class="col-md-8">
+                  <h3 class="hero-title">
+                  Video Games for Sony's Playstation 4 
                 </h3>
                 <p class="light-bg">
-                  Get games such as FIFA 20, PES 2020, God of War, Call of Duty (Modern Warfare), Drive, Need for Speed, Grand Theft Auto, Mortal Combat and lots more
+                  FIFA 20 . PES 2020. God of War
                 </p>
-                <div class="hero-btn mt-5">
+                <div class="col-md-4"></div>
+                </div>
+                <div class="hero-btn ml-3 mt-3">
                     <button class="btn btn-outline-danger mr-4">Explore</button>
                     <button class="btn btn-danger ">Products</button>
                 </div>
               </div>
             </div>
-            <div class="col-md-3 mt-5">
+            <div class="col-md-3">
+              
+            </div>
+            <div class="col-md-2 ">
                 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               
             </div>
           </div>
@@ -45,7 +51,7 @@ export default {
     padding-top: 7rem;
     width: 100%;
     text-align: left;
-    background:url('../assets/images/controller2.jpg');
+    background:url('../assets/images/controller.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-position: cover;
@@ -60,5 +66,8 @@ export default {
     background-color: rgb(0, 0, 0, .4);
     padding: 20px 0;
   }
+  @media (max-width: 770px) { 
+    
+   }
 
 </style>

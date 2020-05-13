@@ -8,7 +8,7 @@
             <div class="sidebar-content">
                 <!-- sidebar-brand  -->
                 <div class="sidebar-item sidebar-brand">
-                    <a href="#">GameStation</a>
+                    <a @click="goHome" href="#">GameStation</a>
                     <div id="close-sidebar" @click="closeMenu">
                         <i class="fas fa-times"></i>
                     </div>
@@ -19,8 +19,7 @@
                         <img class="img-responsive img-rounded" src="/img/profile.jpg" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Adedara
-                            <strong>Bankole</strong>
+                        <span class="user-name">{{this.mail}}
                         </span>
                         <span class="user-role"></span>
                         <span class="user-status">
@@ -114,10 +113,20 @@ export default {
   components: {
     // Hero
   },
+  data () {
+      return {
+           mail: ''
+      }
+  },
   methods:{
-      closeMenu(){
+      goHome () {
+          this.$router.replace('/')
+      },
+
+      closeMenu () {
         $(".page-wrapper").toggleClass("toggled");
       },
+
       logout () {
           fb.auth().signOut()
           .then(() => {
@@ -129,9 +138,10 @@ export default {
       }
   },
 
-  created(){
-        // $(".page-wrapper").toggleClass("toggled");
-
+  created () {
+          var user = fb.auth().currentUser;
+          this.mail = user.email;
+          console.log(this.mail)
   }
 };
 </script>

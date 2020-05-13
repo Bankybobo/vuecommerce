@@ -4,7 +4,11 @@ import Home from '../views/Home.vue'
 import Admin from '../views/Admin.vue'
 import Overview from '../views/Overview.vue'
 import Products from '../views/Products.vue'
-// import Orders from '../views/Orders.vue'
+import Orders from '../views/Orders.vue'
+import Profile from '../views/Profile.vue'
+import Login from '../components/Login.vue'
+import Register from '../components/Register.vue'
+import ProductList from '../section/ProductList.vue'
 import { fb } from '../firebase'
 
 Vue.use(VueRouter)
@@ -16,6 +20,21 @@ Vue.use(VueRouter)
     component: Home
   },
   {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/productlist',
+    name: 'productlist',
+    component: ProductList
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: Admin,
@@ -23,8 +42,8 @@ Vue.use(VueRouter)
     children: [
       {path: 'overview', name: 'overview', component: Overview},
       {path: 'products', name: 'products', component: Products},
-      // {path: 'orders', name: 'orders', component: Orders},
-      // {path: 'profile', name: 'profile', component: Profile}
+      {path: 'orders', name: 'orders', component: Orders},
+      {path: 'profile', name: 'profile', component: Profile}
     ]
   },
   {
