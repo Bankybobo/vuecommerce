@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .login {
     background:url('../assets/images/controller1.jpg');
     background-position: center;
