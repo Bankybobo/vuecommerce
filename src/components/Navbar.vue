@@ -37,7 +37,8 @@
             <div v-else style="color: white" @click="logOut"><a class="btn nav-item mx-1 btn-outline-dark my-2 my-sm-0">Log Out</a></div>
 
             <a @click="showCart" class="btn btn-outline-danger border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
-              <i class="fas fa-cart-plus"></i>
+              <i class="fas fa-cart-plus under"></i>
+              <span class="over">{{ this.$store.state.cart.length }}</span>
             </a>
           </form>
         </div>
@@ -61,7 +62,7 @@ export default {
     return {
       mail: '',
       show: true,
-      username: 'user'
+      username: 'user',
     }
   },
   methods: {
@@ -129,6 +130,18 @@ export default {
       width: 100%;
       padding: auto;
     }
+   }
+
+   .under { 
+     font-size: 25px;
+   }
+   
+   .over {
+     background-color: red;
+     padding: 1px;
+     border-radius: 10px;
+     font-weight: bold;
+     margin-left: -15px;
 
    }
 

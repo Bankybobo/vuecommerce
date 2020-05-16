@@ -47,6 +47,8 @@
 
 <script>
 import { fb, db } from '../firebase'
+import Swal from 'sweetalert2'
+import { Toast } from '../main'
 export default {
     name: "checkout",
 
@@ -80,9 +82,26 @@ export default {
     },
     methods: {
         deleteFromCart (index) {
-            this.$store.state.cart.splice(index, 1)
-            this.updateCart()
-            this.$store.commit('calculateTotal')
+                        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#000000',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            background: "black",
+          })
+          .then((result) => {
+            if (result.value) {
+              this.$store.state.cart.splice(index, 1)
+              this.updateCart()          
+              Toast.fire({
+                icon: 'success',
+                title: 'Deleted successfully'
+              })
+            }
+          })
         },
         increaseQuantity (index) {
             this.$store.state.cart[index].productQuantity++

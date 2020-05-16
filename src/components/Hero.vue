@@ -17,8 +17,7 @@
                 <div class="col-md-4"></div>
                 </div>
                 <div class="hero-btn ml-3 mt-3">
-                    <button class="btn btn-outline-danger mr-4">Explore</button>
-                    <button class="btn btn-danger ">Products</button>
+                    <router-link to="/productlist"><button class="btn btn-danger ">Products</button></router-link>
                 </div>
               </div>
             </div>
