@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import {fb} from './firebase'
 import store from './store/index'
 import router from './router'
 import 'bootstrap'
@@ -8,7 +9,6 @@ import jQuery from 'jquery'
 import Swal from 'sweetalert2'
 window.Swal = Swal
 window.$ = window.jQuery = jQuery
-import {fb} from './firebase'
 import VueFirestore from 'vue-firestore'
 Vue.use(VueFirestore, {
   key: 'id',

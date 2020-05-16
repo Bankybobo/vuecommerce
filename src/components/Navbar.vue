@@ -2,7 +2,7 @@
   <div class="hello" >
    <nav class="navbar py-4 fixed-top navbar-expand-lg navbar-dark">
      <div class="container">
-        <router-link class="navbar-brand" to="/">Game<span style="color: #C82333">Station</span></router-link>
+        <router-link class="navbar-brand" to="/">Game<span style="color: #C82333">Station</span> </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -19,12 +19,24 @@
             <li class="nav-item">
               <router-link to="/about" class="nav-link" href="#">About</router-link>
             </li>
+
+            <li class="nav-item">
+              <router-link to="/orders" class="nav-link" href="#">Orders</router-link>
+            </li>
+
+            <li class="nav-item">
+              <router-link to="/profile" class="nav-link" href="#">Profile</router-link>
+            </li>
           
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input style="width: 60%" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <router-link style="color: white" to="/login"><a class="btn nav-item mx-1 btn-outline-dark my-2 my-sm-0">Log in</a></router-link>
-            <a class="btn btn-outline-danger border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
+            <div v-show="!show" class="username mr-3"><i class="fa fa-user text-success"></i> {{ username }}</div>
+            
+            <router-link v-if="show" style="color: white" to="/login"><a class="btn nav-item mx-1 btn-outline-dark my-2 my-sm-0">Log in</a></router-link>
+
+            <div v-else style="color: white" @click="logOut"><a class="btn nav-item mx-1 btn-outline-dark my-2 my-sm-0">Log Out</a></div>
+
+            <a @click="showCart" class="btn btn-outline-danger border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
               <i class="fas fa-cart-plus"></i>
             </a>
           </form>
@@ -38,10 +50,48 @@
 </template>
 
 <script>
+import { fb, db } from '../firebase'
+import $ from 'jquery'
 export default {
   name: "Navbar",
   props: {
     msg: String
+  },
+  data () {
+    return {
+      mail: '',
+      show: true,
+      username: 'user'
+    }
+  },
+  methods: {
+      logOut () {
+      fb.auth().signOut()
+      .then(() => {
+      if (this.$route.name !== 'home')
+      this.$router.replace({name: 'home'})
+      })
+      .catch((err) => {
+      console.log(err)
+      })
+    },
+    showCart () {
+      if (this.$route.name == "home"  || this.$route.name == "orders" || this.$route.name == "profile")
+      this.$router.replace({name: 'checkout'})
+    $('#minicart').modal('show')
+    }
+  },
+  
+  created () {
+    var user = fb.auth().currentUser;
+    if (user) {
+      this.mail = user.email;
+      this.show = false,
+      db.collection('profiles').doc(user.uid).get()
+      .then(snapshot => {
+        this.username = snapshot.data().name
+      })
+      }
   },
   components:{}
 };

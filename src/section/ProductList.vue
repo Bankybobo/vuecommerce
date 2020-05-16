@@ -116,7 +116,7 @@
       </div>
     </div>
     <div class="mt-5 py-5 ">
-      <div class="container " v-for="product in products" :key="product.id">
+      <div class="container " v-for="(product, index) in products" :key="product.id">
       <div class="row shrink">
         <div class="col-md-12 round-border mt-2 p-2 d-flex">
             <div class="left m-1">
@@ -140,6 +140,7 @@
                       :productId="product.id"
                       :price="product.price"
                       :name="product.name"
+                      :index="index"
                       :description="product.description">
                     </add-to-cart>
                   </div>
@@ -151,6 +152,8 @@
         </div>
       </div>
     </div>
+<!-- Modal -->
+
   </div>
 </template>
 
@@ -198,9 +201,6 @@ data(){
         products: db.collection('products'),
       }
   },
-  created () {
-    console.log(this.products)
-  }
 };
 </script>
 
@@ -289,12 +289,12 @@ data(){
   }
 
   @media (max-width: 760px) { 
-    #description {
-      height: 400px;
-      width: 400px;
-      justify-items: center;
-      font-size: 10px;
-    }
+    // #description {
+    //   height: 400px;
+    //   width: 400px;
+    //   justify-items: center;
+    //   font-size: 10px;
+    // }
   }
 
 </style>

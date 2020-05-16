@@ -50,7 +50,8 @@ export default {
           fb.auth().createUserWithEmailAndPassword(this.email, this.password)
             .then((user) => {
               db.collection('profiles').doc(user.user.uid).set({
-                  name: this.name
+                  name: this.name,
+                  cart: []
             })
             console.log('Document created successfully. ID is ', user.user.uid)
             this.$router.replace({name: 'profile'})

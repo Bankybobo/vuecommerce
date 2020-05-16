@@ -1,130 +1,42 @@
 <template>
-  <div class="products">
-      <div class="container">
-          
-          <div class="profile-content">
-
-          <ul class="nav nav-pills ml-3" id="myTab" role="tablist">
-
-            <li class="nav-item">
-              <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link"  id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Account settings</a>
-            </li>
-           
-          </ul>
-
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active pt-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-                  <div class="container">
-                      <div class="row">
-
-                        <div class="col-md-4 display-picture">
-                            <img src="" alt="Profile-Picture">
-                        </div>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4"></div>
-                        
-                        <div class="col-md-6 mt-3">
-                          <div class="form-group">
-                            <input type="text" name="" v-model="profile.name" placeholder="Full name" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6 mt-3">
-                          <div class="form-group">
-                            <input type="text"  v-model="profile.phone" placeholder="Phone" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <input type="text"  v-model="profile.address" placeholder="Address" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <input type="text"  v-model="profile.postCode" placeholder="Postcode" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <input type="file" @change="uploadImage" class="form-control">
-                           </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <input type="submit" @click="updateProfile" value="Save Changes" class="btn btn-primary w-100">
-                          </div>
-                        </div>
-
-                      </div>
-                  </div>
-                
-                </div>
-
-                <div class="tab-pane fade pt-3" id="account" role="tabpanel" aria-labelledby="account-tab">
-                  <div class="container">
-                      <div class="row">
-                        <div class="col-md-">
-                            <div class="alert alert-info">
-                              Please use the Reset password email button for reseting the password. The form doens't work currently
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <input type="text"  v-model="account.name" placeholder="User name" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <input type="text"  v-model="account.email" placeholder="Email address" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <input type="text"  v-model="account.password" placeholder="New password" class="form-control">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <input type="text" v-model="account.confirmPassword"  placeholder="Confirm password" class="form-control">
-                          </div>
-                        </div>
-
-                        
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <input type="submit" value="Save Changes" class="btn btn-primary w-100">
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <input type="button" @click="resetPassword" value="Reset password email" class="btn btn-success w-100">
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-
+  <div class="profile">
+    <Navbar/>
+   <div class="container mt-5 pt-5">
+      <div class="box">
+        <h2>Account Details</h2>
+        <form>
+            <div class="inputbox">
+                <input type="text"   v-model="profile.name" required>
+                <label for="name">
+                <i class="fa fa-user"></i>
+                Name</label>
             </div>
+
+            <div class="inputbox">
+                <input type="text"  @keyup.enter="login" v-model="profile.phone" required>
+                <label for="phone">
+                <i class="fa fa-phone"></i>
+                Phone Number</label>
+            </div>
+
+            <div class="inputbox">
+                <input type="text"  @keyup.enter="login" v-model="profile.address" required>
+                <label for="address">
+                <i class="fa fa-address-book"></i>
+                Address</label>
+            </div>
+            <div class="inputbox">
+                <input type="text"  @keyup.enter="login" v-model="profile.postCode" required>
+                <label for="postCode">
+                <i class="fa fa-map-pin"></i>
+                Postal Code</label>
+            </div>
+            <input style="font-size: 12px" type="button" @click.prevent="updateProfile" value="Save Changes" class="btn btn-outline-light">
+            <input style="font-size: 12px" type="button" @click.prevent="resetPassword" value="Reset password email" class="btn ml-4 btn-outline-danger">
             
-          </div>
-
+        </form>
       </div>
-
-    
+    </div>
   </div>
 </template>
 
@@ -185,6 +97,7 @@ export default {
 
       updateProfile(){
           this.$firestore.profile.update(this.profile);
+          this.$router.replace({name: 'productlist'})
       },
       uploadImage(){}
   },
@@ -202,5 +115,63 @@ export default {
   border: 1px solid red;
   margin-block: 10px;
 }
+.main {
+        font-family: 'Josefin Sans', sans-serif;
+    }
+    .box {
+        position: absolute;
+        top: 40%;
+        left: 35%;
+        transform: translate(-30%, -30%);
+        width: 400px;
+        padding: 40px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+    }
+
+    .box h2 {
+        margin-bottom: 40px;
+        padding: 0;
+        color: #C82324;
+    }
+    .box p {
+        margin-bottom: 40px;
+        padding: 0;
+        color: lightslategray;
+    }
+    .box .inputbox {
+        position: relative;
+        
+    }
+    .box .inputbox input {
+        width: 100%;
+        padding: 5px 0;
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: #fff;
+        margin-bottom: 45px;
+        border: none;
+        outline: none;
+        background: transparent;
+        border-bottom: 1px solid #C82324;
+    }
+    .box .inputbox label {
+        position: absolute;
+        top: 0;
+        letter-spacing: 1px;
+        left: 0;
+        padding: 5px 0;
+        font-size: 16px;
+        color: lightslategray;
+        pointer-events: none;
+        transition: .5s;
+    }
+    .box .inputbox input:focus ~ label,
+    .box .inputbox input:valid ~ label {
+        top: -23px;
+        left: 0;
+        color: rgb(241, 86, 86);
+        font-size: 13px;
+    } 
 
 </style>

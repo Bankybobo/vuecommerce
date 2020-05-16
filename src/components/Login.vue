@@ -45,8 +45,10 @@ export default {
   methods:{
       login () {
           fb.auth().signInWithEmailAndPassword(this.email, this.password)
-          .then(() => {
+          .then((user) => {
+              if (user.user.email === 'bankolefisayo@yahoo.com')
               this.$router.replace({name: 'admin'})
+              else this.$router.replace({name: 'productlist'})
           })
           .catch(err => {
                 var errorCode = err.code;

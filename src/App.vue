@@ -4,6 +4,35 @@
   </div>
 </template>
 
+<script>
+import { fb, db } from './firebase'
+export default {
+  data () {
+    return {
+      profile: [],
+    }
+  },
+ created () {
+    const user = fb.auth().currentUser;
+    if (user)
+    db.collection('profiles').doc(user.uid).get()
+      .then(snapshot => {
+        this.$store.state.cart = snapshot.data().cart
+      if (this.$store.state.cart.length > 0){
+      let arr = [];
+      for (let i = 0; i < this.$store.state.cart.length; i++) {
+        this.$store.state.cart[i].total = this.$store.state.cart[i].productQuantity * this.$store.state.cart[i].productPrice;
+        arr.push(this.$store.state.cart[i].total)
+      }
+      this.$store.state.total = arr.reduce((x, y) => x + y)
+      }
+      })
+    }
+    
+
+  }
+</script>
+
 <style lang="scss">
 #app {
   font-family: 'Nunito', sans-serif;

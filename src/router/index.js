@@ -34,17 +34,26 @@ Vue.use(VueRouter)
     name: 'register',
     component: Register
   },
+  { path: '/orders', name: 'orders', component: Orders, meta: {requiresAuth: true} },
+  { path: '/profile', name: 'profile', component: Profile, meta: {requiresAuth: true} },
   {
     path: '/admin',
     name: 'admin',
     component: Admin,
-    meta: {requiresAuth: true},
+    meta: {requiresAuth: true },
     children: [
-      {path: 'overview', name: 'overview', component: Overview},
-      {path: 'products', name: 'products', component: Products},
-      {path: 'orders', name: 'orders', component: Orders},
-      {path: 'profile', name: 'profile', component: Profile}
+      {path: 'overview', name: 'overview', component: Overview },
+      {path: 'products', name: 'products', component: Products },
+      
     ]
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Checkout.vue')
   },
   {
     path: '/about',
@@ -66,7 +75,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = fb.auth().currentUser
   if (requiresAuth && !currentUser) 
-    next({name: "home"})
+    next({name: "login"})
   else if (requiresAuth && currentUser)
     next();
   else next()
