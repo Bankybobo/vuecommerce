@@ -7,6 +7,10 @@ import 'bootstrap'
 import './assets/app.scss'
 import jQuery from 'jquery'
 import Swal from 'sweetalert2'
+
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
 window.Swal = Swal
 window.$ = window.jQuery = jQuery
 import VueFirestore from 'vue-firestore'

@@ -5,26 +5,42 @@
                 <div class="box">
                     <h2>Register</h2>
                     <form>
-                        <div class="inputbox">
-                            <input type="text"  name="" v-model="name" required>
+                        <div class="inputbox" :class="{invalid: $v.name.$error}">
+                            <input type="text" @input="$v.name.$touch()" v-model="name" required>
                             <label for="Username">
                             <i class="fa fa-user"></i>
                             Username</label>
+                            <p v-if="$v.name.$error" class="under-message">Username must be minimum of three characters</p>
                         </div>
-                        <div class="inputbox">
-                            <input type="mail"  name="" v-model="email" required>
+                        <div class="inputbox" :class="{invalid: $v.email.$error}">
+                            <input  @input="$v.email.$touch()"  name="" v-model="email" required>
                             <label for="Email">
                             <i class="fa fa-envelope"></i>
                             Email</label>
+                            <p v-if="$v.email.$error" class="under-message">Enter a valid email</p>
+                            <!-- <p>{{$v.email}}</p> -->
                         </div>
-                        <div class="inputbox">
-                            <input type="password" name=""  @keyup.enter="register" v-model="password" required>
+
+
+                        <div class="inputbox" :class="{invalid: $v.password.$error}" >
+                            <input @input="$v.password.$touch()" type="password" name=""  @keyup.enter="register" v-model="password" required>
                             <label for="Password">
                             <i class="fa fa-lock"></i>
                             Password</label>
+                            <p v-if="$v.password.$error " class="under-message">Password must be at least 8 characters with one uppercase, one lowercase and a special character (e.g. @#$%^&*)</p>
                         </div>
-                        <button @click.prevent="register" class="btn btn-outline-danger">Register</button>
-                        <p>Already registered? Log in <router-link class="route" to="/login">here</router-link></p>
+
+                        <div class="inputbox" :class="{invalid: $v.confirmPassword.$error}" >
+                            <input @input="$v.confirmPassword.$touch()" type="password" name=""  @keyup.enter="register" v-model="confirmPassword" required>
+                            <label for="confirm-password">
+                            <i class="fa fa-lock"></i>
+                            Confirm Password</label>
+                            <p v-if="!$v.confirmPassword.sameAs" class="under-message">Passwords do not match</p>
+                        </div>
+
+
+                        <button @click.prevent="register" :disabled="$v.$invalid" class="btn btn-outline-danger">Register</button>
+                        <p class="to-register">Already registered? Log in <router-link class="route" to="/login">here</router-link></p>
                         
                     </form>
                 </div>
@@ -33,6 +49,7 @@
 </template>
 
 <script>
+import { required, sameAs } from 'vuelidate/lib/validators'
 import { fb, db } from '../firebase'
 import "firebase/auth"
 export default {
@@ -41,8 +58,33 @@ export default {
       return {
           name: '',
           email: '',
-          password: ''
+          password: '',
+          confirmPassword: ''
       }
+    },
+    validations: {
+        email: {
+            required: required,
+            unique: reg => {
+                return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,6})+$/.test(reg)
+            }
+            
+        },
+        name: {
+            required,
+            unique: reg => {
+                return /^[a-z'-]{5,}(\s)?([a-z'-]{1,})$/i.test(reg.trim())
+            }
+        },
+        password: {
+            required,
+            unique: reg => {
+                return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(reg)
+            }
+        },
+        confirmPassword: {
+            sameAs: sameAs('password')
+        }
     },
     methods: {
         register () {
@@ -89,9 +131,9 @@ export default {
     .box h2 {
         margin-bottom: 40px;
         padding: 0;
-        color: #C82324;
+        color: white;
     }
-    .box p {
+    .box .to-register {
         margin-bottom: 40px;
         padding: 0;
         color: lightslategray;
@@ -110,7 +152,7 @@ export default {
         border: none;
         outline: none;
         background: transparent;
-        border-bottom: 1px solid #C82324;
+        border-bottom: 1px solid rgb(51, 51, 51);
     }
     .box .inputbox label {
         position: absolute;
@@ -127,11 +169,21 @@ export default {
     .box .inputbox input:valid ~ label {
         top: -23px;
         left: 0;
-        color: rgb(241, 86, 86);
+        color: lightslategray;
         font-size: 13px;
     }
+  
     .route {
         color: #C82324;
+    }
+
+    .inputbox.invalid input {
+        border-bottom: 1px solid red;
+    }
+    .under-message {
+        margin-top: -40px;
+        font-size: 12px;
+        color: red;
     }
 
 
