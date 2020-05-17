@@ -62,7 +62,7 @@ export default {
   }
 
   .light-bg {
-    background-color: rgb(0, 0, 0, .4);
+    background-color: rgba(0, 0, 0, .4);
     padding: 20px 0;
   }
   @media (max-width: 770px) { 
