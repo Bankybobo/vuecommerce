@@ -10,7 +10,7 @@
                 <label for="name">
                 <i class="fa fa-user"></i>
                 Name</label>
-                <p v-if="$v.profile.name.$error" class="under-message">Name must be minimum of 2 characters (No numeric characters allowed)</p>
+                <p v-if="$v.profile.name.$error" class="under-message">Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
             </div>
 
             <div class="inputbox" :class="{invalid: $v.profile.phone.$error}">
@@ -97,7 +97,7 @@ export default {
         name: {
             required,
             unique: reg => {
-                return /^[a-z'-]{2,}(\s)?([a-z'-]{1,})$/i.test(reg.trim())
+                return /^[a-z][a-z0-9'-@#$%^&*]{1,}$/i.test(reg)
             }
         },
         phone: {

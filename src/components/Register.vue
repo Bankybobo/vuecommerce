@@ -10,7 +10,7 @@
                             <label for="Username">
                             <i class="fa fa-user"></i>
                             Username</label>
-                            <p v-if="$v.name.$error" class="under-message">Username must be minimum of three characters</p>
+                            <p v-if="$v.name.$error" class="under-message">Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
                         </div>
                         <div class="inputbox" :class="{invalid: $v.email.$error}">
                             <input  @input="$v.email.$touch()"  name="" v-model="email" required>
@@ -73,7 +73,7 @@ export default {
         name: {
             required,
             unique: reg => {
-                return /^[a-z'-]{5,}(\s)?([a-z'-]{1,})$/i.test(reg.trim())
+                return /^[a-z][a-z0-9'-@#$%^&*]{1,}$/i.test(reg)
             }
         },
         password: {
