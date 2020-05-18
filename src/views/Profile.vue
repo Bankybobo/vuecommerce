@@ -45,7 +45,7 @@
 
 <script>
 // import { VueEditor } from "vue2-editor";
-import { required } from 'vuelidate/lib/validators'
+import { required, alphaNum, minLength } from 'vuelidate/lib/validators'
 import { fb, db} from '../firebase';
 import { Toast } from '../main'
 
@@ -96,9 +96,8 @@ export default {
         },
         name: {
             required,
-            unique: reg => {
-                return /^[a-z][a-z0-9'-@#$%^&*]{1,}$/i.test(reg)
-            }
+            min: minLength(6),
+            alphaNum
         },
         phone: {
             required,

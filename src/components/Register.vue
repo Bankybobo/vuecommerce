@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { required, sameAs } from 'vuelidate/lib/validators'
+import { required, alphaNum, minLength, sameAs } from 'vuelidate/lib/validators'
 import { fb, db } from '../firebase'
 import "firebase/auth"
 export default {
@@ -72,9 +72,8 @@ export default {
         },
         name: {
             required,
-            unique: reg => {
-                return /^[a-z][a-z0-9'-@#$%^&*]{1,}$/i.test(reg)
-            }
+            min: minLength(6),
+            alphaNum
         },
         password: {
             required,
