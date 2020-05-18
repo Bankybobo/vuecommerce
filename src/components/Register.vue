@@ -10,14 +10,14 @@
                             <label for="Username">
                             <i class="fa fa-user"></i>
                             Username</label>
-                            <p v-if="$v.name.$error" class="under-message">Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
+                            <p v-if="!$v.name.required" class="under-message">*This field is required</p>
                         </div>
                         <div class="inputbox" :class="{invalid: $v.email.$error}">
                             <input  @input="$v.email.$touch()"  name="" v-model="email" required>
                             <label for="Email">
                             <i class="fa fa-envelope"></i>
                             Email</label>
-                            <p v-if="$v.email.$error" class="under-message">Enter a valid email</p>
+                            <p v-if="$v.email.$error" class="under-message">*Enter a valid email (e.g banky@vuejs.org)</p>
                             <!-- <p>{{$v.email}}</p> -->
                         </div>
 
@@ -27,7 +27,7 @@
                             <label for="Password">
                             <i class="fa fa-lock"></i>
                             Password</label>
-                            <p v-if="$v.password.$error " class="under-message">Password must be at least 8 characters with one uppercase, one lowercase and a special character (e.g. @#$%^&*)</p>
+                            <p v-if="$v.password.$error " class="under-message">*Password must be at least 8 characters with one uppercase, one lowercase and a special character (e.g. @#$%^&*)</p>
                         </div>
 
                         <div class="inputbox" :class="{invalid: $v.confirmPassword.$error}" >
@@ -35,7 +35,7 @@
                             <label for="confirm-password">
                             <i class="fa fa-lock"></i>
                             Confirm Password</label>
-                            <p v-if="!$v.confirmPassword.sameAs" class="under-message">Passwords do not match</p>
+                            <p v-if="!$v.confirmPassword.sameAs" class="under-message">*Passwords do not match</p>
                         </div>
 
 
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { required, alphaNum, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, sameAs } from 'vuelidate/lib/validators'
 import { fb, db } from '../firebase'
 import "firebase/auth"
 export default {
@@ -72,8 +72,6 @@ export default {
         },
         name: {
             required,
-            min: minLength(6),
-            alphaNum
         },
         password: {
             required,

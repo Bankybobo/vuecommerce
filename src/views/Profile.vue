@@ -10,7 +10,7 @@
                 <label for="name">
                 <i class="fa fa-user"></i>
                 Name</label>
-                <p v-if="$v.profile.name.$error" class="under-message">Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
+                <p v-if="!$v.profile.name.required" class="under-message">*This field is required</p>
             </div>
 
             <div class="inputbox" :class="{invalid: $v.profile.phone.$error}">
@@ -45,7 +45,7 @@
 
 <script>
 // import { VueEditor } from "vue2-editor";
-import { required, alphaNum, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import { fb, db} from '../firebase';
 import { Toast } from '../main'
 
@@ -96,8 +96,6 @@ export default {
         },
         name: {
             required,
-            min: minLength(6),
-            alphaNum
         },
         phone: {
             required,
