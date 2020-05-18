@@ -10,7 +10,7 @@
                             <label for="Username">
                             <i class="fa fa-user"></i>
                             Username</label>
-                            <p v-if="!$v.name.required" class="under-message">*This field is required</p>
+                            <p v-if="$v.name.$error" class="under-message">*Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
                         </div>
                         <div class="inputbox" :class="{invalid: $v.email.$error}">
                             <input  @input="$v.email.$touch()"  name="" v-model="email" required>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { required, sameAs } from 'vuelidate/lib/validators'
+import { required, alphaNum, minLength, sameAs } from 'vuelidate/lib/validators'
 import { fb, db } from '../firebase'
 import "firebase/auth"
 export default {
@@ -72,6 +72,8 @@ export default {
         },
         name: {
             required,
+            min: minLength(6),
+            alphaNum
         },
         password: {
             required,

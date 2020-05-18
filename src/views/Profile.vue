@@ -10,7 +10,7 @@
                 <label for="name">
                 <i class="fa fa-user"></i>
                 Name</label>
-                <p v-if="!$v.profile.name.required" class="under-message">*This field is required</p>
+                <p v-if="$v.profile.name.$error" class="under-message">*Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
             </div>
 
             <div class="inputbox" :class="{invalid: $v.profile.phone.$error}">
@@ -18,7 +18,7 @@
                 <label for="phone">
                 <i class="fa fa-phone"></i>
                 Phone Number</label>
-                <p v-if="$v.profile.phone.$error" class="under-message">Phone number must be 10 or 11 digits</p>
+                <p v-if="$v.profile.phone.$error" class="under-message">*Phone number must be 10 or 11 digits</p>
             </div>
 
             <div class="inputbox" :class="{invalid: $v.profile.address.$error}">
@@ -26,14 +26,14 @@
                 <label for="address">
                 <i class="fa fa-address-book"></i>
                 Address</label>
-                <p v-if="$v.profile.address.$error" class="under-message">Address must be at least 3 characters long</p>
+                <p v-if="$v.profile.address.$error" class="under-message">*Address must be at least 3 characters long</p>
             </div>
             <div class="inputbox" :class="{invalid: $v.profile.postCode.$error}">
                 <input type="text"  @input="$v.profile.postCode.$touch()" @keyup.enter="login" v-model="profile.postCode" required>
                 <label for="postCode">
                 <i class="fa fa-map-pin"></i>
                 Postal Code</label>
-                <p v-if="$v.profile.postCode.$error" class="under-message">Postal code must be at least 3 numeric characters long </p>
+                <p v-if="$v.profile.postCode.$error" class="under-message">*Postal code must be at least 3 numeric characters long </p>
             </div>
             <input style="font-size: 12px" type="button" :disabled="!($v.profile.phone.unique && $v.profile.name.unique && $v.profile.address.unique && $v.profile.postCode.unique)" @click.prevent="updateProfile" value="Save Changes" class="btn btn-outline-light">
             <input style="font-size: 12px" type="button" @click.prevent="resetPassword" value="Reset password email" class="btn ml-4 btn-outline-danger">
@@ -45,7 +45,7 @@
 
 <script>
 // import { VueEditor } from "vue2-editor";
-import { required } from 'vuelidate/lib/validators'
+import { required, alphaNum, minLength } from 'vuelidate/lib/validators'
 import { fb, db} from '../firebase';
 import { Toast } from '../main'
 
@@ -96,6 +96,8 @@ export default {
         },
         name: {
             required,
+            min: minLength(6),
+            alphaNum
         },
         phone: {
             required,
