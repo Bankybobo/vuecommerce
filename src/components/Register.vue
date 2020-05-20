@@ -6,14 +6,14 @@
                     <h2>Register</h2>
                     <form>
                         <div class="inputbox" :class="{invalid: $v.name.$error}">
-                            <input type="text" @input="$v.name.$touch()" v-model="name" required>
+                            <input type="text" @blur="$v.name.$touch()" v-model="name" required>
                             <label for="Username">
                             <i class="fa fa-user"></i>
                             Username</label>
-                            <p v-if="$v.name.$error" class="under-message">*Username should be one word. First letter must be an alphabet (e.g. Bankole123). </p>
+                            <p v-if="$v.name.$error" class="under-message">*Username should be at least 3 characters. </p>
                         </div>
                         <div class="inputbox" :class="{invalid: $v.email.$error}">
-                            <input  @input="$v.email.$touch()"  name="" v-model="email" required>
+                            <input  @blur="$v.email.$touch()"  name="" v-model="email" required>
                             <label for="Email">
                             <i class="fa fa-envelope"></i>
                             Email</label>
@@ -23,7 +23,7 @@
 
 
                         <div class="inputbox" :class="{invalid: $v.password.$error}" >
-                            <input @input="$v.password.$touch()" type="password" name=""  @keyup.enter="register" v-model="password" required>
+                            <input @blur="$v.password.$touch()" type="password" name=""  @keyup.enter="register" v-model="password" required>
                             <label for="Password">
                             <i class="fa fa-lock"></i>
                             Password</label>
@@ -31,11 +31,11 @@
                         </div>
 
                         <div class="inputbox" :class="{invalid: $v.confirmPassword.$error}" >
-                            <input @input="$v.confirmPassword.$touch()" type="password" name=""  @keyup.enter="register" v-model="confirmPassword" required>
+                            <input @blur="$v.confirmPassword.$touch()" type="password" name=""  @keyup.enter="register" v-model="confirmPassword" required>
                             <label for="confirm-password">
                             <i class="fa fa-lock"></i>
                             Confirm Password</label>
-                            <p v-if="!$v.confirmPassword.sameAs" class="under-message">*Passwords do not match</p>
+                            <p v-if="$v.confirmPassword.$invalid" class="under-message">*Passwords do not match</p>
                         </div>
 
 
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { required, alphaNum, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 import { fb, db } from '../firebase'
 import "firebase/auth"
 export default {
@@ -72,13 +72,12 @@ export default {
         },
         name: {
             required,
-            min: minLength(6),
-            alphaNum
+            min: minLength(3),
         },
         password: {
             required,
             unique: reg => {
-                return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(reg)
+                return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_~`+]).{8,}$/.test(reg)
             }
         },
         confirmPassword: {

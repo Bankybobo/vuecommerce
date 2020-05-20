@@ -4,6 +4,7 @@
     <div class="container mt-5 pt-5">
                 <div class="box">
                     <h2>Login</h2>
+                    <p class="error err">{{error}}</p>
                     <form>
                         <div class="inputbox">
                             <input type="text"  name="" v-model="email" required>
@@ -39,7 +40,8 @@ export default {
       return {
           name: '',
           email: '',
-          password: ''
+          password: '',
+          error: null
       }
   },
   methods:{
@@ -54,7 +56,14 @@ export default {
                 var errorCode = err.code;
                 var errMessage = err.Message;
                 if (errorCode == 'auth/wrong-password')
-                  alert("password is wrong")
+                  this.error = "Password is wrong"
+
+                else if (errorCode == 'auth/invalid-email')
+                  this.error = "The mail entered is invalid"
+
+                 else if (errorCode == 'auth/user-not-found')
+                  this.error = "This user does not exist"
+
                 else alert(errMessage);
                 console.log(err);
           })
@@ -71,6 +80,13 @@ export default {
     background-repeat: no-repeat;
     background-position: cover;
     min-height: 100vh;
+    }
+    .error.err {
+        color: red;
+        font-size: 10px;
+        font-style: italic;
+        padding: 0;
+        // margin: 5px;
     }
 
     .main {

@@ -38,7 +38,7 @@
 
             <a @click="showCart" class="btn btn-outline-danger border-0 mx-2 my-2 my-sm-0" data-toggle="modal" data-target="#miniCart">
               <i class="fas fa-cart-plus under"></i>
-              <span class="over">{{ this.$store.state.cart.length }}</span>
+              <span class="over" v-show="cartLength() > 0">{{ cartLength() }}</span>
             </a>
           </form>
         </div>
@@ -80,6 +80,11 @@ export default {
       if (this.$route.name == "home"  || this.$route.name == "orders" || this.$route.name == "profile")
       this.$router.replace({name: 'checkout'})
     $('#minicart').modal('show')
+    },
+    cartLength () {
+      if (this.$store.state.cart.length > 0)
+      return this.$store.state.cart.length
+      else return ''
     }
   },
   
@@ -138,10 +143,11 @@ export default {
    
    .over {
      background-color: red;
-     padding: 1px;
-     border-radius: 10px;
+     padding: 5px;
+     border-radius: 3px;
      font-weight: bold;
      margin-left: -15px;
+     width: 20px;
 
    }
 

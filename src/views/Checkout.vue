@@ -149,21 +149,25 @@ export default {
     },
     created () {
     const user = fb.auth().currentUser;
-    this.mail = user.email
-    this.id = user.uid
-    db.collection('profiles').doc(user.uid).get()
-      .then(snapshot => {
-        this.$store.state.cart = snapshot.data().cart
-        let arr = [];
-        if (this.$store.state.cart.length > 0)
-        for (let i = 0; i < this.$store.state.cart.length; i++) {
-            this.$store.state.cart[i].total = this.$store.state.cart[i].productQuantity * this.$store.state.cart[i].productPrice;
-            arr.push(this.$store.state.cart[i].total)
-        }
-        if (this.$store.state.cart.length > 0)
-        this.$store.state.total = arr.reduce((x, y) => x + y)
-      })
-      
+    if (user) {
+
+        this.mail = user.email
+        this.id = user.uid
+        db.collection('profiles').doc(user.uid).get()
+          .then(snapshot => {
+            this.$store.state.cart = snapshot.data().cart
+            let arr = [];
+            if (this.$store.state.cart.length > 0)
+            for (let i = 0; i < this.$store.state.cart.length; i++) {
+                this.$store.state.cart[i].total = this.$store.state.cart[i].productQuantity * this.$store.state.cart[i].productPrice;
+                arr.push(this.$store.state.cart[i].total)
+            }
+            if (this.$store.state.cart.length > 0)
+            this.$store.state.total = arr.reduce((x, y) => x + y)
+            else this.$store.state.total = 0
+          })
+          
+    }
     }
 
 }

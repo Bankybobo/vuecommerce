@@ -19,13 +19,18 @@ const store = new Vuex.Store({
       },
 
       calculateTotal (state) {
-        let arr = [];
+        if(state.cart.length>0){
+          let arr = [];
           for (let i = 0; i < state.cart.length; i++) {
             state.cart[i].total = state.cart[i].productQuantity * state.cart[i].productPrice;
             arr.push(state.cart[i].total)
           }
+
         state.total = arr.reduce((x, y) => x + y)
         console.log(state.total)
+        }
+        else state.total = 0
+        
       },
 
       saveToServer (state) {
